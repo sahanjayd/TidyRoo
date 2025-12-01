@@ -256,6 +256,15 @@ function initQuoteSummary() {
 // Forms (enhanced submit + success message)
 // -----------------------------
 function initForms() {
+  // Helper: turn FormData into x-www-form-urlencoded string
+  const encode = (formData) => {
+    const params = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+      params.append(key, value);
+    }
+    return params.toString();
+  };
+
   $$('form[data-enhanced]').forEach((form) => {
     const response =
       $('[data-form-response]', form.parentElement) ||
@@ -271,22 +280,24 @@ function initForms() {
       try {
         const data = new FormData(form);
 
-        // Netlify form submit:
-        // - POST to the current page (or action URL if you set one)
-        const action = form.getAttribute('action') || window.location.pathname;
+        // IMPORTANT for Netlify: ensure form-name is present
+        if (!data.get('form-name') && form.name) {
+          data.set('form-name', form.name);
+        }
 
-        const res = await fetch(action, {
+        // Netlify AJAX submit pattern: POST to "/"
+        const res = await fetch('/', {
           method: 'POST',
-          body: data, // keep FormData so Netlify sees all fields
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode(data)
         });
 
         if (!res.ok) {
-          throw new Error('Netlify form submit failed');
+          throw new Error('Netlify form submit failed: ' + res.status);
         }
 
-        // Show success message inline
+        // Show success message
         if (response) {
-          // customise per form if you like
           if (form.name === 'callback') {
             response.textContent =
               'Thanks! We have your details and will call you back shortly.';
@@ -304,7 +315,6 @@ function initForms() {
 
         form.reset();
 
-        // Re-render estimate if this is the quote form
         if (form.id === 'quoteForm') {
           initQuoteSummary();
         }
