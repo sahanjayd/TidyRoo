@@ -1,0 +1,284 @@
+﻿<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Online | TidyRoo Instant Quote</title>
+  <meta name="description" content="Get an instant quote for carpet steam cleaning, upholstery, tiles, and more. Choose your rooms, add-on services, and preferred time. Same-day slots available." />
+  <link rel="canonical" href="https://tidyroo.com.au/booking.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book TidyRoo" />
+  <meta property="og:description" content="Schedule carpet and upholstery cleaning with TidyRoo in under two minutes. Same-day service windows and satisfaction guarantee." />
+  <meta property="og:url" content="https://tidyroo.com.au/booking.html" />
+  <meta property="og:image" content="https://tidyroo.com.au/assets/booking-hero.webp" />
+
+  <!-- Fonts / CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-icon" aria-hidden="true">🦘</span>
+        <img class="brand-icon" src="images/logo.jpg" alt="" aria-hidden="true" />
+        <span class="brand-text">TidyRoo</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="btn btn-secondary" href="#quote-form">Get Instant Quote</a>
+        <a class="btn btn-primary" href="#quote-form">Book Now</a>
+      </div>
+
+      <button class="nav-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-expanded="false" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <div class="mobile-cta">
+        <a class="btn btn-primary" href="#quote-form">Book Now</a>
+        <a class="btn btn-outline" href="tel:[Phone]">Call [Phone]</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section section-light">
+      <div class="container hero">
+        <div class="hero-copy">
+          <span class="hero-kicker">Instant booking</span>
+          <h1>Tell us about your clean in under two minutes</h1>
+          <p class="lead">Choose your services, extras, and preferred time. We will confirm by phone or email within the hour.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#quote-form">Start quote</a>
+            <a class="btn btn-outline" href="mailto:[Email]">Email photos</a>
+          </div>
+          <div class="mobile-only">
+            <p class="helper-text">Prefer to chat? <a href="tel:[Phone]">Call [Phone]</a> and we can book it for you.</p>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <picture>
+            <source srcset="images/booking.jpg" type="image/jpeg" />
+            <img src="images/booking.jpg" alt="Homeowner booking a cleaning service on a tablet" loading="lazy" />
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quote-form">
+      <div class="container">
+        <div class="card">
+          <h2>Instant quote & booking form</h2>
+          <p class="helper-text">Fields marked with * are required. We never share your details.</p>
+
+          <form class="form-grid" id="quoteForm" data-enhanced>
+            <label class="full">Full name *
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+
+            <label>Phone *
+              <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="04xx xxx xxx" required />
+            </label>
+
+            <label>Email *
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+
+            <label class="full">Address / suburb *
+              <input
+                id="address"
+                name="address"
+                placeholder="e.g. 123 Boundary Rd, Carlton"
+                autocomplete="street-address address-level2 postal-code"
+                required />
+            </label>
+
+            <label>Property type
+              <select name="property">
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="townhouse">Townhouse</option>
+                <option value="office">Office / commercial</option>
+              </select>
+            </label>
+
+            <label>Rooms (carpeted)
+              <input name="rooms" type="number" min="0" step="1" value="3" />
+            </label>
+
+            <label>Primary service *
+              <select name="service" required>
+                <option value="carpet">Carpet steam cleaning</option>
+                <option value="upholstery">Upholstery cleaning</option>
+                <option value="rugs">Rug cleaning</option>
+                <option value="mattress">Mattress sanitising</option>
+                <option value="tiles">Tile & grout cleaning</option>
+              </select>
+            </label>
+
+            <fieldset class="full" style="border: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+              <legend>Extras</legend>
+              <label><input type="checkbox" name="extras[]" value="stain-guard" /> Stain guard protection</label>
+              <label><input type="checkbox" name="extras[]" value="deodorise" checked /> Deodorising</label>
+              <label><input type="checkbox" name="extras[]" value="flood" /> Flood extraction / emergency dry</label>
+            </fieldset>
+
+            <label>Preferred date
+              <input name="date" type="date" />
+            </label>
+
+            <label>Preferred time window
+              <select name="time">
+                <option value="morning">Morning (7am-11am)</option>
+                <option value="midday">Midday (11am-2pm)</option>
+                <option value="afternoon">Afternoon (2pm-6pm)</option>
+                <option value="after-hours">After hours (on request)</option>
+              </select>
+            </label>
+
+            <label class="full">Notes
+              <textarea name="notes" rows="4" placeholder="Room sizes, stains, parking access, pets, or special requests"></textarea>
+            </label>
+
+            <label>Upload photos
+              <input type="file" name="photos" accept="image/*" multiple />
+              <span class="helper-text">Optional: add stain or layout photos to speed up quoting.</span>
+            </label>
+
+            <div class="card full" style="background: rgba(244,233,219,0.6); border: 1px solid rgba(34,34,34,0.08);">
+              <p class="helper-text desktop-only">Need help? Call <a href="tel:[Phone]">[Phone]</a> for immediate assistance.</p>
+              <p class="helper-text">Estimate: <strong id="quoteSummary">Enter room details to view your estimate.</strong></p>
+            </div>
+
+            <div class="full" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+              <button class="btn btn-primary" type="submit">Submit booking request</button>
+              <a class="btn btn-secondary" href="tel:[Phone]">Call instead</a>
+              <span class="helper-text">We respond within one business hour during opening times.</span>
+            </div>
+          </form>
+
+          <p class="notice" data-form-response hidden>Thanks! A TidyRoo coordinator will confirm the details shortly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted">
+      <div class="container card-grid">
+        <article class="card">
+          <h2>What to expect next</h2>
+          <ol style="padding-left: 20px; display: grid; gap: 12px;">
+            <li>We confirm your appointment time and share the name of your technician.</li>
+            <li>You receive an email with preparation tips and a reminder the day prior.</li>
+            <li>On arrival we walk through the space, confirm pricing, and get started.</li>
+          </ol>
+        </article>
+
+        <article class="card">
+          <h2>Need rapid response?</h2>
+          <p>Flood, tenancy handover, or allergy flare-up? Call us and mention our priority list. We hold emergency slots daily.</p>
+          <a class="btn btn-outline" href="tel:[Phone]">Call [Phone]</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="brand-icon" aria-hidden="true">🦘</span>
+          <span class="brand-text">TidyRoo</span>
+        </a>
+        <p>Fresh floors and furnishings for homes, rentals, and workplaces across Melbourne.</p>
+        <ul class="footer-meta">
+          <li>ABN: [ABN]</li>
+          <li>Phone: <a href="tel:[Phone]">[Phone]</a></li>
+          <li>Email: <a href="mailto:[Email]">[Email]</a></li>
+          <li>Hours: Mon-Sat 8am-6pm</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Quick links</h4>
+        <ul class="footer-links">
+          <li><a href="services.html">Service menu</a></li>
+          <li><a href="pricing.html">Pricing guide</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="blog.html">Cleaning tips blog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Service areas</h4>
+        <ul class="service-areas">
+          <li>Anywhere in Melbourne</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Newsletter</h4>
+        <p>Seasonal cleaning reminders, tips, and exclusive offers. No spam.</p>
+        <form class="newsletter" data-enhanced>
+          <label for="newsletterEmailBooking">Email</label>
+          <input id="newsletterEmailBooking" type="email" name="email" placeholder="you@example.com" required />
+          <button class="btn btn-secondary" type="submit">Join list</button>
+          <p class="helper-text">Unsubscribe anytime.</p>
+        </form>
+        <p class="notice" data-form-response hidden>Thanks for joining the TidyRoo crew! Check your inbox for a welcome tip sheet.</p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© <span id="currentYear"></span> TidyRoo. All rights reserved.</span>
+      <div class="social-links">
+        <a href="https://www.facebook.com/tidyroo" aria-label="Facebook">Facebook</a>
+        <a href="https://www.instagram.com/tidyroo" aria-label="Instagram">Instagram</a>
+        <a href="legal.html">Privacy & terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="floating-contact" id="contactFab">
+    <a class="btn btn-primary btn-sm" href="tel:[Phone]">Call [Phone]</a>
+    <a class="btn btn-secondary btn-sm" href="https://wa.me/61XXXXXXXXX" target="_blank" rel="noopener">Text us</a>
+    <button class="btn btn-outline btn-sm" type="button" data-dismiss-fab aria-label="Hide contact options">Close</button>
+  </div>
+
+  <!-- Your app script (handles nav, estimate, forms, year, etc.) -->
+  <script src="script.js" defer></script>
+
+  <!--
+    Optional: Google Places API for address autocomplete.
+    To enable, replace YOUR_API_KEY with a valid key and
+    remove the surrounding HTML comment so the script loads.
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&region=AU&callback=initAutocomplete"
+      async defer></script>
+  -->
+</body>
+</html>
