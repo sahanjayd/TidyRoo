@@ -257,7 +257,9 @@ function initQuoteSummary() {
 // -----------------------------
 function initForms() {
   $$('form[data-enhanced]').forEach((form) => {
-    const response = $('[data-form-response]', form.parentElement) || $('[data-form-response]');
+    const response =
+      $('[data-form-response]', form.parentElement) ||
+      $('[data-form-response]');
     let busy = false;
 
     form.addEventListener('submit', async (e) => {
@@ -267,26 +269,49 @@ function initForms() {
 
       busy = true;
       try {
-        // Collect data (placeholder: integrate with your backend if needed)
         const data = new FormData(form);
 
-        // Example POST:
-        // const res = await fetch('/api/booking', { method: 'POST', body: data });
-        // if (!res.ok) throw new Error('Submit failed');
+        // Netlify form submit:
+        // - POST to the current page (or action URL if you set one)
+        const action = form.getAttribute('action') || window.location.pathname;
 
-        // Simulate success
-        await new Promise(r => setTimeout(r, 350));
+        const res = await fetch(action, {
+          method: 'POST',
+          body: data, // keep FormData so Netlify sees all fields
+        });
 
+        if (!res.ok) {
+          throw new Error('Netlify form submit failed');
+        }
+
+        // Show success message inline
         if (response) {
-          response.textContent = 'Thanks! We have your details and will get back to you shortly.';
+          // customise per form if you like
+          if (form.name === 'callback') {
+            response.textContent =
+              'Thanks! We have your details and will call you back shortly.';
+          } else if (form.name === 'quote') {
+            response.textContent =
+              'Thanks! A TidyRoo coordinator will confirm the details shortly.';
+          } else {
+            response.textContent =
+              'Thanks! We have your details and will get back to you shortly.';
+          }
+
           response.hidden = false;
           response.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+
         form.reset();
+
         // Re-render estimate if this is the quote form
-        if (form.id === 'quoteForm') initQuoteSummary();
+        if (form.id === 'quoteForm') {
+          initQuoteSummary();
+        }
       } catch (err) {
-        alert('Sorry, something went wrong submitting your form. Please try again or call us.');
+        alert(
+          'Sorry, something went wrong submitting your form. Please try again or call us.'
+        );
         // console.error(err);
       } finally {
         busy = false;
@@ -294,6 +319,7 @@ function initForms() {
     });
   });
 }
+
 
 // -----------------------------
 // Hours badge (Melbourne time)

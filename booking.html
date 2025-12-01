@@ -89,102 +89,155 @@
       </div>
     </section>
 
-    <section class="section" id="quote-form">
-      <div class="container">
-        <div class="card">
-          <h2>Instant quote & booking form</h2>
-          <p class="helper-text">Fields marked with * are required. We never share your details.</p>
+   <section class="section" id="quote-form">
+  <div class="container">
+    <div class="card">
+      <h2>Instant quote &amp; booking form</h2>
+      <p class="helper-text">
+        Fields marked with * are required. We never share your details.
+      </p>
 
-          <form class="form-grid" id="quoteForm" data-enhanced>
-            <label class="full">Full name *
-              <input name="name" type="text" autocomplete="name" required />
-            </label>
+      <form
+        class="form-grid"
+        id="quoteForm"
+        name="quote"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="quote-bot-field"
+        enctype="multipart/form-data"
+        data-enhanced
+      >
+        <!-- Required for Netlify -->
+        <input type="hidden" name="form-name" value="quote" />
 
-            <label>Phone *
-              <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="04xx xxx xxx" required />
-            </label>
+        <!-- Honeypot (spam trap) -->
+        <p style="display:none;">
+          <label>Don’t fill this out:
+            <input name="quote-bot-field" />
+          </label>
+        </p>
 
-            <label>Email *
-              <input name="email" type="email" autocomplete="email" required />
-            </label>
+        <label class="full">Full name *
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
 
-            <label class="full">Address / suburb *
-              <input
-                id="address"
-                name="address"
-                placeholder="e.g. 123 Boundary Rd, Carlton"
-                autocomplete="street-address address-level2 postal-code"
-                required />
-            </label>
+        <label>Phone *
+          <input
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            placeholder="04xx xxx xxx"
+            required
+          />
+        </label>
 
-            <label>Property type
-              <select name="property">
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-                <option value="townhouse">Townhouse</option>
-                <option value="office">Office / commercial</option>
-              </select>
-            </label>
+        <label>Email *
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
 
-            <label>Rooms (carpeted)
-              <input name="rooms" type="number" min="0" step="1" value="3" />
-            </label>
+        <label class="full">Address / suburb *
+          <input
+            id="address"
+            name="address"
+            placeholder="e.g. 123 Boundary Rd, Carlton"
+            autocomplete="street-address address-level2 postal-code"
+            required
+          />
+        </label>
 
-            <label>Primary service *
-              <select name="service" required>
-                <option value="carpet">Carpet steam cleaning</option>
-                <option value="upholstery">Upholstery cleaning</option>
-                <option value="rugs">Rug cleaning</option>
-                <option value="mattress">Mattress sanitising</option>
-                <option value="tiles">Tile & grout cleaning</option>
-              </select>
-            </label>
+        <label>Property type
+          <select name="property">
+            <option value="house">House</option>
+            <option value="apartment">Apartment</option>
+            <option value="townhouse">Townhouse</option>
+            <option value="office">Office / commercial</option>
+          </select>
+        </label>
 
-            <fieldset class="full" style="border: none; padding: 0; margin: 0; display: grid; gap: 12px;">
-              <legend>Extras</legend>
-              <label><input type="checkbox" name="extras[]" value="stain-guard" /> Stain guard protection</label>
-              <label><input type="checkbox" name="extras[]" value="deodorise" checked /> Deodorising</label>
-              <label><input type="checkbox" name="extras[]" value="flood" /> Flood extraction / emergency dry</label>
-            </fieldset>
+        <label>Rooms (carpeted)
+          <input name="rooms" type="number" min="0" step="1" value="3" />
+        </label>
 
-            <label>Preferred date
-              <input name="date" type="date" />
-            </label>
+        <label>Primary service *
+          <select name="service" required>
+            <option value="carpet">Carpet steam cleaning</option>
+            <option value="upholstery">Upholstery cleaning</option>
+            <option value="rugs">Rug cleaning</option>
+            <option value="mattress">Mattress sanitising</option>
+            <option value="tiles">Tile &amp; grout cleaning</option>
+          </select>
+        </label>
 
-            <label>Preferred time window
-              <select name="time">
-                <option value="morning">Morning (7am-11am)</option>
-                <option value="midday">Midday (11am-2pm)</option>
-                <option value="afternoon">Afternoon (2pm-6pm)</option>
-                <option value="after-hours">After hours (on request)</option>
-              </select>
-            </label>
+        <fieldset
+          class="full"
+          style="border:none; padding:0; margin:0; display:grid; gap:12px;"
+        >
+          <legend>Extras</legend>
+          <label><input type="checkbox" name="extras[]" value="stain-guard" /> Stain guard protection</label>
+          <label><input type="checkbox" name="extras[]" value="deodorise" checked /> Deodorising</label>
+          <label><input type="checkbox" name="extras[]" value="flood" /> Flood extraction / emergency dry</label>
+        </fieldset>
 
-            <label class="full">Notes
-              <textarea name="notes" rows="4" placeholder="Room sizes, stains, parking access, pets, or special requests"></textarea>
-            </label>
+        <label>Preferred date
+          <input name="date" type="date" />
+        </label>
 
-            <label>Upload photos
-              <input type="file" name="photos" accept="image/*" multiple />
-              <span class="helper-text">Optional: add stain or layout photos to speed up quoting.</span>
-            </label>
+        <label>Preferred time window
+          <select name="time">
+            <option value="morning">Morning (7am-11am)</option>
+            <option value="midday">Midday (11am-2pm)</option>
+            <option value="afternoon">Afternoon (2pm-6pm)</option>
+            <option value="after-hours">After hours (on request)</option>
+          </select>
+        </label>
 
-            <div class="card full" style="background: rgba(244,233,219,0.6); border: 1px solid rgba(34,34,34,0.08);">
-              <p class="helper-text desktop-only">Need help? Call <a href="tel:[Phone]">[Phone]</a> for immediate assistance.</p>
-              <p class="helper-text">Estimate: <strong id="quoteSummary">Enter room details to view your estimate.</strong></p>
-            </div>
+        <label class="full">Notes
+          <textarea
+            name="notes"
+            rows="4"
+            placeholder="Room sizes, stains, parking access, pets, or special requests"
+          ></textarea>
+        </label>
 
-            <div class="full" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
-              <button class="btn btn-primary" type="submit">Submit booking request</button>
-              <a class="btn btn-secondary" href="tel:[Phone]">Call instead</a>
-              <span class="helper-text">We respond within one business hour during opening times.</span>
-            </div>
-          </form>
+        <label>Upload photos
+          <input type="file" name="photos" accept="image/*" multiple />
+          <span class="helper-text">
+            Optional: add stain or layout photos to speed up quoting.
+          </span>
+        </label>
 
-          <p class="notice" data-form-response hidden>Thanks! A TidyRoo coordinator will confirm the details shortly.</p>
+        <div
+          class="card full"
+          style="background:rgba(244,233,219,0.6); border:1px solid rgba(34,34,34,0.08);"
+        >
+          <p class="helper-text desktop-only">
+            Need help? Call <a href="tel:[Phone]">[Phone]</a> for immediate assistance.
+          </p>
+          <p class="helper-text">
+            Estimate: <strong id="quoteSummary">Enter room details to view your estimate.</strong>
+          </p>
         </div>
-      </div>
-    </section>
+
+        <div
+          class="full"
+          style="display:flex; flex-wrap:wrap; gap:16px; align-items:center;"
+        >
+          <button class="btn btn-primary" type="submit">Submit booking request</button>
+          <a class="btn btn-secondary" href="tel:[Phone]">Call instead</a>
+          <span class="helper-text">
+            We respond within one business hour during opening times.
+          </span>
+        </div>
+      </form>
+
+      <p class="notice" data-form-response hidden>
+        Thanks! A TidyRoo coordinator will confirm the details shortly.
+      </p>
+    </div>
+  </div>
+</section>
+
 
     <section class="section section-muted">
       <div class="container card-grid">

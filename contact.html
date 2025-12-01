@@ -96,40 +96,73 @@
     </section>
 
     <section class="section section-muted" id="callback">
-      <div class="container">
-        <div class="card">
-          <h2>Request a callback</h2>
-          <p class="helper-text">We will ring you back within one business hour (faster during open hours).</p>
-          <form class="form-grid" data-enhanced>
-            <label>Name *
-              <input name="callback-name" type="text" required />
-            </label>
-            <label>Phone *
-              <input name="callback-phone" type="tel" required />
-            </label>
-            <label>Email
-              <input name="callback-email" type="email" />
-            </label>
-            <label>Preferred contact time
-              <select name="callback-time">
-                <option value="asap">As soon as possible</option>
-                <option value="morning">Morning</option>
-                <option value="afternoon">Afternoon</option>
-                <option value="evening">Evening</option>
-              </select>
-            </label>
-            <label class="full">How can we help?
-              <textarea name="callback-notes" rows="4" required placeholder="Tell us about your space, stains, pets, or timing"></textarea>
-            </label>
-            <div class="full" style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
-              <button class="btn btn-primary" type="submit">Request callback</button>
-              <a class="btn btn-secondary" href="tel:[Phone]">Call now</a>
-            </div>
-          </form>
-          <p class="notice" data-form-response hidden>Thanks! We will give you a buzz shortly.</p>
+  <div class="container">
+    <div class="card">
+      <h2>Request a callback</h2>
+      <p class="helper-text">
+        We will ring you back within one business hour (faster during open hours).
+      </p>
+
+      <!-- Netlify form -->
+      <form
+        class="form-grid"
+        name="callback"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="callback-bot-field"
+        data-enhanced
+      >
+        <!-- Required for Netlify -->
+        <input type="hidden" name="form-name" value="callback" />
+
+        <!-- Honeypot (spam trap) -->
+        <p style="display:none;">
+          <label>Don’t fill this out:
+            <input name="callback-bot-field" />
+          </label>
+        </p>
+
+        <label>Name *
+          <input name="callback-name" type="text" required />
+        </label>
+        <label>Phone *
+          <input name="callback-phone" type="tel" required />
+        </label>
+        <label>Email
+          <input name="callback-email" type="email" />
+        </label>
+        <label>Preferred contact time
+          <select name="callback-time">
+            <option value="asap">As soon as possible</option>
+            <option value="morning">Morning</option>
+            <option value="afternoon">Afternoon</option>
+            <option value="evening">Evening</option>
+          </select>
+        </label>
+        <label class="full">How can we help?
+          <textarea
+            name="callback-notes"
+            rows="4"
+            required
+            placeholder="Tell us about your space, stains, pets, or timing"
+          ></textarea>
+        </label>
+        <div
+          class="full"
+          style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;"
+        >
+          <button class="btn btn-primary" type="submit">Request callback</button>
+          <a class="btn btn-secondary" href="tel:[Phone]">Call now</a>
         </div>
-      </div>
-    </section>
+      </form>
+
+      <p class="notice" data-form-response hidden>
+        Thanks! We will give you a buzz shortly.
+      </p>
+    </div>
+  </div>
+</section>
+
 
     <section class="section">
       <div class="container card-grid">
