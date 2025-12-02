@@ -232,31 +232,10 @@ function calculateEstimate(form) {
   };
 }
 
-function initQuoteSummary() {
-  const form = $('#quoteForm');
-  const output = $('#quoteSummary');
-  if (!form || !output) return;
-
-  const update = () => {
-    const est = calculateEstimate(form);
-    const bits = [`${money.format(est.total)} estimated`, `• ${est.service}`];
-    if (est.rooms > 0) bits.push(`• ${est.rooms} rooms`);
-    if (est.extras.length) bits.push(`• extras: ${est.extras.join(', ')}`);
-    output.textContent = est.rooms > 0 || est.extras.length ? bits.join(' ') : 'Enter room details to view your estimate.';
-  };
-
-  const debounced = debounce(update, 120);
-
-  form.addEventListener('input', debounced);
-  // Initial render
-  update();
-}
-
 // -----------------------------
 // Forms (enhanced submit + success message)
 // -----------------------------
 function initForms() {
-  // Helper: turn FormData into x-www-form-urlencoded string
   const encode = (formData) => {
     const params = new URLSearchParams();
     for (const [key, value] of formData.entries()) {
@@ -278,14 +257,14 @@ function initForms() {
 
       busy = true;
       try {
-        const data = new FormData(form);
+        // Build hidden summaries for quote form
+        prepareServiceSummaries(form);
 
-        // IMPORTANT for Netlify: ensure form-name is present
+        const data = new FormData(form);
         if (!data.get('form-name') && form.name) {
           data.set('form-name', form.name);
         }
 
-        // Netlify AJAX submit pattern: POST to "/"
         const res = await fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -296,7 +275,6 @@ function initForms() {
           throw new Error('Netlify form submit failed: ' + res.status);
         }
 
-        // Show success message
         if (response) {
           if (form.name === 'callback') {
             response.textContent =
@@ -314,15 +292,10 @@ function initForms() {
         }
 
         form.reset();
-
-        if (form.id === 'quoteForm') {
-          initQuoteSummary();
-        }
       } catch (err) {
         alert(
           'Sorry, something went wrong submitting your form. Please try again or call us.'
         );
-        // console.error(err);
       } finally {
         busy = false;
       }
@@ -448,7 +421,7 @@ function initUI() {
   renderFaq();
   renderReviewsPage();
   initForms();
-  initQuoteSummary();
+  initQuoteServices();
   initBusinessHoursBadge();
   initFloatingContact();
   initScrollShadow();

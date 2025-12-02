@@ -146,28 +146,185 @@
           />
         </label>
 
-        <label>Property type
-          <select name="property">
-            <option value="house">House</option>
-            <option value="apartment">Apartment</option>
-            <option value="townhouse">Townhouse</option>
-            <option value="office">Office / commercial</option>
-          </select>
-        </label>
+               <!-- Services selection -->
+        <fieldset
+          class="full service-selector"
+          style="border:none; padding:0; margin:0; display:grid; gap:8px;"
+        >
+          <legend>Services required *</legend>
+          <p class="helper-text">Select all that apply.</p>
 
-        <label>Rooms (carpeted)
-          <input name="rooms" type="number" min="0" step="1" value="3" />
-        </label>
+          <label>
+            <input type="checkbox" name="services[]" value="carpet" data-service-toggle="carpet" />
+            Carpet steam cleaning
+          </label>
 
-        <label>Primary service *
-          <select name="service" required>
-            <option value="carpet">Carpet steam cleaning</option>
-            <option value="upholstery">Upholstery cleaning</option>
-            <option value="rugs">Rug cleaning</option>
-            <option value="mattress">Mattress sanitising</option>
-            <option value="tiles">Tile &amp; grout cleaning</option>
-          </select>
-        </label>
+          <label>
+            <input type="checkbox" name="services[]" value="upholstery" data-service-toggle="upholstery" />
+            Upholstery / couch cleaning
+          </label>
+
+          <label>
+            <input type="checkbox" name="services[]" value="rugs" data-service-toggle="rugs" />
+            Rug cleaning
+          </label>
+
+          <label>
+            <input type="checkbox" name="services[]" value="mattress" data-service-toggle="mattress" />
+            Mattress sanitising
+          </label>
+
+          <label>
+            <input type="checkbox" name="services[]" value="tiles" data-service-toggle="tiles" />
+            Tile &amp; grout cleaning
+          </label>
+
+          <!-- summary string that goes into your Netlify email -->
+          <input type="hidden" name="services_summary" id="servicesSummary" />
+        </fieldset>
+
+        <!-- Carpet -->
+        <div class="full service-block" data-service-section="carpet" hidden>
+          <h3>Carpet steam cleaning details</h3>
+          <label>Number of carpeted rooms
+            <input name="carpet_rooms" id="carpetRooms" type="number" min="1" step="1" />
+          </label>
+        </div>
+
+        <!-- Tiles -->
+        <div class="full service-block" data-service-section="tiles" hidden>
+          <h3>Tile &amp; grout cleaning details</h3>
+          <label>Number of tiled areas (bathrooms, kitchen, etc.)
+            <input name="tile_areas" id="tileAreas" type="number" min="1" step="1" />
+          </label>
+        </div>
+
+        <!-- Upholstery / couches -->
+        <div class="full service-block" data-service-section="upholstery" hidden>
+          <h3>Upholstery / couch cleaning details</h3>
+          <p class="helper-text">Add each couch with seat count and material.</p>
+
+          <div id="sofaList" class="repeat-list" style="display:grid; gap:12px;">
+            <div class="repeat-item" data-sofa-item style="display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); align-items:flex-end;">
+              <label>Seats
+                <select name="sofa_seats[]">
+                  <option value="1-seater">1 seater</option>
+                  <option value="2-seater">2 seater</option>
+                  <option value="3-seater" selected>3 seater</option>
+                  <option value="4-seater">4 seater</option>
+                  <option value="5-seater">5 seater</option>
+                  <option value="6-seater">6 seater</option>
+                  <option value="sectional">Sectional / other</option>
+                </select>
+              </label>
+
+              <label>Material
+                <select name="sofa_material[]">
+                  <option value="fabric">Fabric</option>
+                  <option value="microfibre">Microfibre</option>
+                  <option value="leather">Leather</option>
+                  <option value="faux-leather">Faux leather</option>
+                  <option value="linen">Linen</option>
+                  <option value="suede">Suede</option>
+                  <option value="velvet">Velvet</option>
+                  <option value="other">Other / unsure</option>
+                </select>
+              </label>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-remove-sofa
+                style="justify-self:flex-start;"
+                aria-label="Remove couch"
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-ghost" data-add-sofa>
+            + Add another couch
+          </button>
+
+          <input type="hidden" name="upholstery_summary" id="upholsterySummary" />
+        </div>
+
+        <!-- Mattresses -->
+        <div class="full service-block" data-service-section="mattress" hidden>
+          <h3>Mattress cleaning details</h3>
+          <p class="helper-text">Add each mattress size and quantity.</p>
+
+          <div id="mattressList" class="repeat-list" style="display:grid; gap:12px;">
+            <div class="repeat-item" data-mattress-item style="display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); align-items:flex-end;">
+              <label>Size
+                <select name="mattress_size[]">
+                  <option value="single">Single</option>
+                  <option value="king-single">King single</option>
+                  <option value="double">Double</option>
+                  <option value="queen" selected>Queen</option>
+                  <option value="king">King</option>
+                  <option value="super-king">Super king</option>
+                  <option value="cot">Cot</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+
+              <label>Quantity
+                <input type="number" name="mattress_qty[]" min="1" step="1" value="1" />
+              </label>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-remove-mattress
+                style="justify-self:flex-start;"
+                aria-label="Remove mattress row"
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-ghost" data-add-mattress>
+            + Add another mattress size
+          </button>
+
+          <input type="hidden" name="mattress_summary" id="mattressSummary" />
+        </div>
+
+        <!-- Rugs -->
+        <div class="full service-block" data-service-section="rugs" hidden>
+          <h3>Rug cleaning details</h3>
+          <p class="helper-text">Add each rug with approximate width and length in metres.</p>
+
+          <div id="rugList" class="repeat-list" style="display:grid; gap:12px;">
+            <div class="repeat-item" data-rug-item style="display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); align-items:flex-end;">
+              <label>Width (m)
+                <input type="number" name="rug_width[]" min="0" step="0.1" />
+              </label>
+              <label>Length (m)
+                <input type="number" name="rug_length[]" min="0" step="0.1" />
+              </label>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-remove-rug
+                style="justify-self:flex-start;"
+                aria-label="Remove rug row"
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-ghost" data-add-rug>
+            + Add another rug
+          </button>
+
+          <input type="hidden" name="rugs_summary" id="rugsSummary" />
+        </div>
 
         <fieldset
           class="full"
@@ -213,9 +370,6 @@
         >
           <p class="helper-text desktop-only">
             Need help? Call <a href="tel:[Phone]">[Phone]</a> for immediate assistance.
-          </p>
-          <p class="helper-text">
-            Estimate: <strong id="quoteSummary">Enter room details to view your estimate.</strong>
           </p>
         </div>
 
@@ -322,6 +476,7 @@
   </div>
 
   <!-- Your app script (handles nav, estimate, forms, year, etc.) -->
+  <script src="service.js" defer></script>
   <script src="script.js" defer></script>
 
   <!--
