@@ -658,6 +658,29 @@ textarea {
   transition: var(--transition);
 }
 
+/* Keep checkboxes and radios compact and aligned */
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0;
+  border-radius: 4px;
+  width: auto;
+  height: auto;
+  box-shadow: none;
+}
+
+/* Inline label layout for checkbox groups (services, extras) */
+fieldset label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+fieldset label input[type="checkbox"],
+fieldset label input[type="radio"] {
+  margin: 0;
+}
+
 input:focus,
 select:focus,
 textarea:focus {
