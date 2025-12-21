@@ -272,6 +272,12 @@ p {
   position: relative;
 }
 
+.desktop-nav a[aria-current="page"],
+.desktop-nav a.is-active {
+  color: var(--color-eucalyptus);
+  font-weight: 700;
+}
+
 .desktop-nav a::after {
   content: "";
   position: absolute;
@@ -283,6 +289,11 @@ p {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition);
+}
+
+.desktop-nav a[aria-current="page"]::after,
+.desktop-nav a.is-active::after {
+  transform: scaleX(1);
 }
 
 .desktop-nav a:hover::after,
@@ -328,15 +339,37 @@ p {
   background: rgba(255, 255, 255, 0.95);
 }
 
-.mobile-nav a {
+.mobile-nav a:not(.btn) {
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   background: rgba(244, 233, 219, 0.4);
 }
 
+.mobile-nav a[aria-current="page"]:not(.btn),
+.mobile-nav a.is-active:not(.btn) {
+  background: rgba(46, 125, 50, 0.12);
+  color: var(--color-eucalyptus);
+  font-weight: 700;
+}
+
 .mobile-nav .mobile-cta {
   display: grid;
   gap: 10px;
+  margin-top: 8px;
+}
+
+.mobile-nav .mobile-cta .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.mobile-nav .mobile-cta .btn-primary {
+  box-shadow: 0 12px 20px rgba(46, 125, 50, 0.22);
+}
+
+.mobile-nav .mobile-cta .btn-outline {
+  background: var(--color-white);
+  border-color: rgba(34, 34, 34, 0.18);
 }
 
 .hero {

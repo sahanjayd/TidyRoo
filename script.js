@@ -89,6 +89,27 @@ function initMobileNav() {
   $$('a', mobileNav).forEach((link) => link.addEventListener('click', () => setState(false)));
 }
 
+function initActiveNav() {
+  const normalize = (href = '') => {
+    const [path] = href.split('#');
+    const parts = path.split('/');
+    const last = parts.pop() || '';
+    return last || 'index.html';
+  };
+
+  const current = normalize(window.location.pathname || '');
+  const links = [...$$('.desktop-nav a'), ...$$('.mobile-nav a')];
+
+  links.forEach((link) => {
+    const target = normalize(link.getAttribute('href') || '');
+    const matchesHome = target === 'index.html' && current === 'index.html';
+    if (target === current || matchesHome) {
+      link.classList.add('is-active');
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+}
+
 function initCurrentYear() {
   const yearEl = $('#currentYear');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -415,6 +436,7 @@ function initReviewFilter() {
 // -----------------------------
 function initUI() {
   initMobileNav();
+  initActiveNav();
   initCurrentYear();
   initBeforeAfter();
   renderTestimonials();
