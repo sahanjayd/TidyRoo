@@ -17,34 +17,12 @@ function debounce(fn, wait = 200) {
 // Data (left as-is, but feel free to Melbourne-ify suburbs later)
 // -----------------------------
 const DATA = {
-  testimonials: [
-    { name: 'Amelia R.', suburb: 'Paddington', quote: 'Our living room carpet looks brand new. The tech even moved the lounge carefully and put sliders underneath.', rating: 5 },
-    { name: 'Jayden T.', suburb: 'New Farm', quote: 'Booked the same morning and they squeezed us in. No lingering wet smell and the kids bedroom dried fast.', rating: 5 },
-    { name: 'Sophie L.', suburb: 'Carindale', quote: 'Clear quote, eco products, no upsells. They spot treated a red wine stain I had given up on.', rating: 5 },
-    { name: 'Michael B.', suburb: 'West End', quote: 'Tile and grout surround the kitchen came up amazingly. They sealed afterwards and it still looks sharp.', rating: 5 },
-    { name: 'Priya D.', suburb: 'Bulimba', quote: 'Quick to communicate and respectful with our pets. Lounge suite smells fresh without heavy perfumes.', rating: 5 },
-    { name: 'Will H.', suburb: 'Woolloongabba', quote: 'Arrived on time, wore boot covers, and talked us through drying tips. Really impressed with the service.', rating: 5 }
-  ],
   faqs: [
     { q: 'How long does the steam clean take to dry?', a: 'Most carpets are walk-on dry in three to six hours. We use high extraction and air movers where needed to speed things up.' },
     { q: 'Can you move furniture?', a: 'Yes, light items like chairs and side tables are moved carefully and returned with protective tabs. We ask that electronics and breakables are moved beforehand.' },
     { q: 'Are the products child and pet safe?', a: 'We select biodegradable, low-tox detergents and rinse thoroughly. Surfaces are safe once dry. Let us know about sensitivities and we will tailor the solution.' },
     { q: 'Do you service weekend or after-hours slots?', a: 'Standard hours are Monday to Saturday, 8am to 6pm. For urgent bond cleans or commercial work we can accommodate after-hours on request.' },
     { q: 'What if a stain comes back?', a: 'If something wicks back after service, call us within seven days. Our satisfaction guarantee covers a complimentary re-clean of the affected area.' }
-  ],
-  extendedReviews: [
-    { name: 'Amelia R.', suburb: 'Paddington', date: 'May 2025', rating: 5, text: 'Absolutely wrapped with the result. Booking was simple online and they arrived ten minutes early. They protected the walls and dried the carpet with fans before leaving.' },
-    { name: 'Jayden T.', suburb: 'New Farm', date: 'April 2025', rating: 5, text: 'Called the night before a rental inspection. Team squeezed us in and left the place spotless. Agent commented on the fresh smell.' },
-    { name: 'Sophie L.', suburb: 'Carindale', date: 'April 2025', rating: 5, text: 'Transparent about pricing, no surprises. Upholstery feels soft again and the allergy symptoms in our home have improved.' },
-    { name: 'Michael B.', suburb: 'West End', date: 'March 2025', rating: 5, text: 'Friendly tech walked me through each step and even left drying blocks under the timber legs. Highly recommend their tile service.' },
-    { name: 'Priya D.', suburb: 'Bulimba', date: 'March 2025', rating: 5, text: 'Loved the eco focus. They brought their own mats to protect our floors and left a checklist with drying tips. Whole process felt easy.' },
-    { name: 'Will H.', suburb: 'Woolloongabba', date: 'February 2025', rating: 5, text: 'Great communication from start to finish. Digital invoice, clear maintenance advice, and they even deodorised our rugs as a courtesy.' },
-    { name: 'Emily C.', suburb: 'Teneriffe', date: 'January 2025', rating: 5, text: 'We booked the full home package after a renovation. Carpets, tiles, and upholstery all look brilliant and dust levels are way down.' },
-    { name: 'Carlos F.', suburb: 'Kangaroo Point', date: 'January 2025', rating: 5, text: 'Best carpet clean we have had in years. Same-day booking and the coupon made it sharp value. They even left shoe covers for us.' },
-    { name: 'Leah S.', suburb: 'Upper Mount Gravatt', date: 'December 2024', rating: 5, text: 'Mattress sanitising service helped with our toddler’s allergies. They followed up the next day to check in. Great customer care.' },
-    { name: 'Thomas W.', suburb: 'South Brisbane', date: 'December 2024', rating: 5, text: 'Booked for our strata common areas. Responsive admin team, insured, and provided SWMS documents immediately. Building manager is happy.' },
-    { name: 'Nina M.', suburb: 'Fortitude Valley', date: 'November 2024', rating: 5, text: 'The before-and-after on the dining chairs is insane. Technician explained stain guard options clearly and there was no pressure.' },
-    { name: 'Oliver K.', suburb: 'Greenslopes', date: 'November 2024', rating: 5, text: 'We manage Airbnb properties and rely on TidyRoo for quick turnarounds. They always leave the place guest-ready with a nice neutral scent.' }
   ]
 };
 
@@ -65,6 +43,40 @@ function starMarkup(count) {
     <span class="sr-only">${count} out of 5 stars</span>
     <span aria-hidden="true">${'★'.repeat(count)}</span>
   `;
+}
+
+const REVIEW_STORAGE_KEY = 'tidyroo.reviews';
+const REVIEW_MEMORY = [];
+
+function formatReviewDate(date = new Date()) {
+  return date.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
+}
+
+function getStoredReviews() {
+  if (!('localStorage' in window)) return REVIEW_MEMORY.slice();
+  try {
+    const raw = localStorage.getItem(REVIEW_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    return REVIEW_MEMORY.slice();
+  }
+}
+
+function saveReview(review) {
+  if (!('localStorage' in window)) {
+    REVIEW_MEMORY.unshift(review);
+    return REVIEW_MEMORY.slice();
+  }
+  try {
+    const reviews = getStoredReviews();
+    reviews.unshift(review);
+    localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(reviews));
+    return reviews;
+  } catch (err) {
+    REVIEW_MEMORY.unshift(review);
+    return REVIEW_MEMORY.slice();
+  }
 }
 
 function initMobileNav() {
@@ -136,17 +148,30 @@ function renderTestimonials() {
   const container = $('#homeTestimonials');
   if (!container) return;
 
-  const items = DATA.testimonials.slice(0, 3);
+  const items = getStoredReviews().slice(0, 3);
+  container.innerHTML = '';
+  if (!items.length) return;
+
   const frag = document.createDocumentFragment();
 
   items.forEach((item) => {
     const card = document.createElement('article');
     card.className = 'testimonial';
-    card.innerHTML = `
-      <div class="badge-live">${starMarkup(item.rating)}</div>
-      <p>${item.quote}</p>
-      <cite>${item.name} · ${item.suburb}</cite>
-    `;
+
+    const stars = document.createElement('div');
+    stars.className = 'badge-live';
+    const rating = Math.min(5, Math.max(1, Number(item.rating) || 5));
+    stars.innerHTML = starMarkup(rating);
+
+    const body = document.createElement('p');
+    body.textContent = item.text || '';
+
+    const cite = document.createElement('cite');
+    const name = item.name || 'Anonymous';
+    const suburb = item.suburb ? ` - ${item.suburb}` : '';
+    cite.textContent = `${name}${suburb}`;
+
+    card.append(stars, body, cite);
     frag.appendChild(card);
   });
 
@@ -175,30 +200,101 @@ function renderFaq() {
   });
 }
 
-function renderReviewsPage() {
+function renderReviewsPage(items = null) {
   const container = $('#reviewsList');
   if (!container) return;
+  const emptyState = $('#reviewEmptyState');
+
+  const reviews = Array.isArray(items) ? items : getStoredReviews();
+  container.innerHTML = '';
+
+  if (!reviews.length) {
+    if (emptyState) emptyState.hidden = false;
+    return;
+  }
+
+  if (emptyState) emptyState.hidden = true;
 
   const frag = document.createDocumentFragment();
 
-  DATA.extendedReviews.forEach((item) => {
+  reviews.forEach((item, idx) => {
     const card = document.createElement('article');
     card.className = 'testimonial';
-    const titleId = `review-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+
+    const slugBase = [item.name, item.suburb, item.date, idx]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-');
+    const titleId = `review-${slugBase || idx}`;
     card.setAttribute('aria-labelledby', titleId);
 
-    card.innerHTML = `
-      <header class="row" style="justify-content: space-between; align-items: center; gap: 12px;">
-        <div id="${titleId}">${starMarkup(item.rating)}</div>
-        <span class="badge-neutral">${item.date}</span>
-      </header>
-      <p>${item.text}</p>
-      <cite>${item.name} · ${item.suburb}</cite>
-    `;
+    const header = document.createElement('header');
+    header.className = 'row';
+    header.style.justifyContent = 'space-between';
+    header.style.alignItems = 'center';
+    header.style.gap = '12px';
+
+    const stars = document.createElement('div');
+    stars.id = titleId;
+    const rating = Math.min(5, Math.max(1, Number(item.rating) || 5));
+    stars.innerHTML = starMarkup(rating);
+
+    const date = document.createElement('span');
+    date.className = 'badge-neutral';
+    date.textContent = item.date || formatReviewDate();
+
+    header.append(stars, date);
+
+    const body = document.createElement('p');
+    body.textContent = item.text || '';
+
+    const cite = document.createElement('cite');
+    const name = item.name || 'Anonymous';
+    const suburb = item.suburb ? ` - ${item.suburb}` : '';
+    cite.textContent = `${name}${suburb}`;
+
+    card.append(header, body, cite);
     frag.appendChild(card);
   });
 
   container.appendChild(frag);
+}
+
+function initReviewForm() {
+  const form = $('#reviewForm');
+  if (!form) return;
+  const success = $('#reviewSuccess');
+  const filter = $('#reviewFilter');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const suburb = String(data.get('suburb') || '').trim();
+    const text = String(data.get('review') || '').trim();
+    const rating = Math.min(5, Math.max(1, parseInt(data.get('rating') || '5', 10) || 5));
+
+    const review = {
+      name,
+      suburb,
+      text,
+      rating,
+      date: formatReviewDate()
+    };
+
+    const reviews = saveReview(review);
+    renderReviewsPage(reviews);
+    form.reset();
+    if (filter) filter.value = '';
+
+    if (success) {
+      success.textContent = 'Thanks! Your review is now live on this page.';
+      success.hidden = false;
+    }
+  });
 }
 
 // -----------------------------
@@ -442,6 +538,7 @@ function initUI() {
   renderTestimonials();
   renderFaq();
   renderReviewsPage();
+  initReviewForm();
   initForms();
   initQuoteServices();
   initBusinessHoursBadge();

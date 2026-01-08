@@ -66,7 +66,7 @@
           <p class="lead">Hear from tenants, property managers, Airbnb hosts, and families who trust TidyRoo to keep their spaces fresh.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="booking.html#quote-form">Book your clean</a>
-            <a class="btn btn-outline" href="https://g.page/" target="_blank" rel="noopener">Leave a review</a>
+            <a class="btn btn-outline" href="#reviewForm">Write a review</a>
           </div>
         </div>
         <div class="hero-media">
@@ -85,6 +85,37 @@
           <p class="helper-text">Filter by suburb, service, or keyword.</p>
           <input type="search" id="reviewFilter" placeholder="Try 'tile', 'Bulimba', or 'allergy'" />
         </div>
+        <div class="card" style="margin-bottom: 32px;">
+          <h2>Write a review</h2>
+          <p class="helper-text">Share your experience with TidyRoo. Reviews appear instantly on this page in your browser.</p>
+          <form id="reviewForm" class="form-grid">
+            <label for="reviewName">Your name
+              <input id="reviewName" name="name" type="text" placeholder="e.g. Sam P." required />
+            </label>
+
+            <label for="reviewSuburb">Suburb (optional)
+              <input id="reviewSuburb" name="suburb" type="text" placeholder="e.g. Richmond" />
+            </label>
+
+            <label class="full" for="reviewRating">Rating
+              <select id="reviewRating" name="rating" required>
+                <option value="5" selected>5 - Excellent</option>
+                <option value="4">4 - Great</option>
+                <option value="3">3 - Good</option>
+                <option value="2">2 - Okay</option>
+                <option value="1">1 - Poor</option>
+              </select>
+            </label>
+
+            <label class="full" for="reviewText">Your review
+              <textarea id="reviewText" name="review" rows="4" placeholder="Tell us about the service" required></textarea>
+            </label>
+
+            <button class="btn btn-primary full" type="submit">Post review</button>
+          </form>
+          <p class="notice" id="reviewSuccess" hidden>Thanks! Your review is now live on this page.</p>
+        </div>
+        <p class="helper-text" id="reviewEmptyState" hidden>No reviews yet. Be the first to share your experience.</p>
         <div class="testimonial-grid" id="reviewsList" aria-live="polite"></div>
         <div style="margin-top: 32px;">
           <a class="btn btn-secondary" href="https://g.page/" target="_blank" rel="noopener">Leave a review on Google</a>
