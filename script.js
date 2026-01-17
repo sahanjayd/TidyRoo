@@ -45,38 +45,34 @@ function starMarkup(count) {
   `;
 }
 
-const REVIEW_STORAGE_KEY = 'tidyroo.reviews';
-const REVIEW_MEMORY = [];
+const REVIEW_LIST_ENDPOINT = '/.netlify/functions/reviews-list';
+const REVIEW_SUBMIT_ENDPOINT = '/.netlify/functions/reviews-submit';
 
 function formatReviewDate(date = new Date()) {
   return date.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
 }
 
-function getStoredReviews() {
-  if (!('localStorage' in window)) return REVIEW_MEMORY.slice();
-  try {
-    const raw = localStorage.getItem(REVIEW_STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : [];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (err) {
-    return REVIEW_MEMORY.slice();
-  }
+async function fetchReviews(limit) {
+  const params = new URLSearchParams();
+  if (Number.isFinite(limit)) params.set('limit', String(limit));
+  const url = params.toString()
+    ? `${REVIEW_LIST_ENDPOINT}?${params.toString()}`
+    : REVIEW_LIST_ENDPOINT;
+
+  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error('Failed to load reviews');
+  const payload = await res.json();
+  return Array.isArray(payload.reviews) ? payload.reviews : [];
 }
 
-function saveReview(review) {
-  if (!('localStorage' in window)) {
-    REVIEW_MEMORY.unshift(review);
-    return REVIEW_MEMORY.slice();
-  }
-  try {
-    const reviews = getStoredReviews();
-    reviews.unshift(review);
-    localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(reviews));
-    return reviews;
-  } catch (err) {
-    REVIEW_MEMORY.unshift(review);
-    return REVIEW_MEMORY.slice();
-  }
+async function submitReview(payload) {
+  const res = await fetch(REVIEW_SUBMIT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('Failed to submit review');
+  return res.json();
 }
 
 function initMobileNav() {
@@ -144,17 +140,17 @@ function initBeforeAfter() {
   });
 }
 
-function renderTestimonials() {
+function renderTestimonials(items = []) {
   const container = $('#homeTestimonials');
   if (!container) return;
 
-  const items = getStoredReviews().slice(0, 3);
+  const safeItems = Array.isArray(items) ? items.slice(0, 3) : [];
   container.innerHTML = '';
-  if (!items.length) return;
+  if (!safeItems.length) return;
 
   const frag = document.createDocumentFragment();
 
-  items.forEach((item) => {
+  safeItems.forEach((item) => {
     const card = document.createElement('article');
     card.className = 'testimonial';
 
@@ -200,12 +196,38 @@ function renderFaq() {
   });
 }
 
-function renderReviewsPage(items = null) {
+async function loadHomeReviews() {
+  const container = $('#homeTestimonials');
+  if (!container) return;
+  try {
+    const reviews = await fetchReviews(3);
+    renderTestimonials(reviews);
+  } catch (err) {
+    container.innerHTML = '';
+  }
+}
+
+async function loadReviewsPage() {
+  const container = $('#reviewsList');
+  if (!container) return;
+  const emptyState = $('#reviewEmptyState');
+  try {
+    const reviews = await fetchReviews();
+    renderReviewsPage(reviews);
+  } catch (err) {
+    if (emptyState) {
+      emptyState.textContent = 'Unable to load reviews right now. Please try again later.';
+      emptyState.hidden = false;
+    }
+  }
+}
+
+function renderReviewsPage(items = []) {
   const container = $('#reviewsList');
   if (!container) return;
   const emptyState = $('#reviewEmptyState');
 
-  const reviews = Array.isArray(items) ? items : getStoredReviews();
+  const reviews = Array.isArray(items) ? items : [];
   container.innerHTML = '';
 
   if (!reviews.length) {
@@ -221,7 +243,7 @@ function renderReviewsPage(items = null) {
     const card = document.createElement('article');
     card.className = 'testimonial';
 
-    const slugBase = [item.name, item.suburb, item.date, idx]
+    const slugBase = [item.name, item.suburb, item.createdAt, idx]
       .filter(Boolean)
       .join(' ')
       .toLowerCase()
@@ -242,7 +264,12 @@ function renderReviewsPage(items = null) {
 
     const date = document.createElement('span');
     date.className = 'badge-neutral';
-    date.textContent = item.date || formatReviewDate();
+    const createdAt = item.createdAt ? new Date(item.createdAt) : null;
+    const displayDate =
+      createdAt && !Number.isNaN(createdAt.getTime())
+        ? formatReviewDate(createdAt)
+        : formatReviewDate();
+    date.textContent = displayDate;
 
     header.append(stars, date);
 
@@ -266,9 +293,12 @@ function initReviewForm() {
   if (!form) return;
   const success = $('#reviewSuccess');
   const filter = $('#reviewFilter');
+  const submitButton = $('button[type="submit"]', form);
+  let busy = false;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (busy) return;
     if (!form.reportValidity()) return;
 
     const data = new FormData(form);
@@ -281,18 +311,30 @@ function initReviewForm() {
       name,
       suburb,
       text,
-      rating,
-      date: formatReviewDate()
+      rating
     };
 
-    const reviews = saveReview(review);
-    renderReviewsPage(reviews);
-    form.reset();
-    if (filter) filter.value = '';
+    busy = true;
+    if (submitButton) submitButton.disabled = true;
+    if (success) success.hidden = true;
 
-    if (success) {
-      success.textContent = 'Thanks! Your review is now live on this page.';
-      success.hidden = false;
+    try {
+      await submitReview(review);
+      form.reset();
+      if (filter) filter.value = '';
+
+      if (success) {
+        success.textContent = 'Thanks! Your review is submitted and will appear after approval.';
+        success.hidden = false;
+      }
+    } catch (err) {
+      if (success) {
+        success.textContent = 'Sorry, we could not submit your review. Please try again later.';
+        success.hidden = false;
+      }
+    } finally {
+      busy = false;
+      if (submitButton) submitButton.disabled = false;
     }
   });
 }
@@ -535,9 +577,9 @@ function initUI() {
   initActiveNav();
   initCurrentYear();
   initBeforeAfter();
-  renderTestimonials();
+  loadHomeReviews();
   renderFaq();
-  renderReviewsPage();
+  loadReviewsPage();
   initReviewForm();
   initForms();
   initQuoteServices();
