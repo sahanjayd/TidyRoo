@@ -1,0 +1,6 @@
+fastapi==0.137.1
+uvicorn[standard]==0.49.0
+python-dotenv==1.2.2
+pydantic[email]==2.13.4
+# Optional: PostgreSQL support (uncomment if using Postgres instead of SQLite)
+# psycopg2-binary==2.9.12

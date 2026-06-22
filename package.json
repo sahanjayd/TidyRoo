@@ -1,9 +1,25 @@
 {
   "name": "tidyroo-site",
+  "version": "3.0.0",
+  "description": "TidyRoo — Professional Carpet Steam Cleaning website (Next.js + Python FastAPI)",
   "private": true,
-  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "backend": "cd backend && uvicorn main:app --reload --port 8000",
+    "dev:all": "concurrently \"npm run dev\" \"npm run backend\""
+  },
   "dependencies": {
-    "pg": "^8.13.1",
-    "qrcode.react": "^4.2.0"
+    "next": "^15.3.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
