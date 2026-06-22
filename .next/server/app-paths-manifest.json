@@ -1,8 +1,20 @@
 {
-  "/page": "app/page.js",
-  "/services/page": "app/services/page.js",
-  "/reviews/page": "app/reviews/page.js",
+  "/api/contact/route": "app/api/contact/route.js",
+  "/api/newsletter/route": "app/api/newsletter/route.js",
+  "/api/reviews/admin/route": "app/api/reviews/admin/route.js",
+  "/api/reviews/route": "app/api/reviews/route.js",
+  "/api/booking/route": "app/api/booking/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/blog/page": "app/blog/page.js",
   "/about/page": "app/about/page.js",
+  "/blog/how-often/page": "app/blog/how-often/page.js",
+  "/blog/stain-removal/page": "app/blog/stain-removal/page.js",
+  "/booking/page": "app/booking/page.js",
+  "/blog/pet-safe/page": "app/blog/pet-safe/page.js",
+  "/pricing/page": "app/pricing/page.js",
+  "/reviews/page": "app/reviews/page.js",
+  "/page": "app/page.js",
   "/contact/page": "app/contact/page.js",
-  "/booking/page": "app/booking/page.js"
+  "/services/page": "app/services/page.js",
+  "/legal/page": "app/legal/page.js"
 }
