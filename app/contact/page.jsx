@@ -1,15 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import ApiForm from '../../components/ApiForm'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'Contact TidyRoo | Quote, Call, or Callback',
-  description: 'Contact TidyRoo for carpet steam cleaning in Melbourne. Call, email, request a callback, or view our service radius and business hours.',
+  title: 'Contact Us – Quotes, Calls & Callbacks',
+  description: 'Contact TidyRoo for carpet and upholstery cleaning in Melbourne. Call 0493 100 989, email, or request a callback. Available Mon–Sun 7am–6pm. Get in touch today.',
 }
 
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Contact', href: '/contact' }]} />
       <section className="section-white" style={{ padding: '72px 0 80px' }}>
         <div className="container hero">
           <div className="hero-copy">
@@ -22,7 +24,7 @@ export default function ContactPage() {
             </div>
           </div>
           <div className="hero-media">
-            <Image src="/images/online.jpg" alt="TidyRoo support team taking customer calls" fill style={{ objectFit: 'cover' }} />
+            <Image src="/images/online.jpg" alt="TidyRoo customer support team ready to help with carpet cleaning bookings" fill style={{ objectFit: 'cover' }} priority sizes="(max-width: 768px) 100vw, 640px" />
           </div>
         </div>
       </section>

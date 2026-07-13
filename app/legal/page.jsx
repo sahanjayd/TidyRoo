@@ -1,13 +1,16 @@
 import Link from 'next/link'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'Privacy, Terms & Refund Policy | TidyRoo',
-  description: 'Read the TidyRoo privacy policy, terms and conditions, and refund and re-clean guarantee for carpet cleaning services in Melbourne.',
+  title: 'Privacy, Terms & Refund Policy',
+  description: "Read TidyRoo's privacy policy, terms and conditions, and refund policy for carpet cleaning services across Melbourne. Review our policies before booking.",
 }
 
 export default function LegalPage() {
   return (
-    <section className="section-white" style={{ padding: '72px 0 100px' }}>
+    <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Privacy & Terms', href: '/legal' }]} />
+      <section className="section-white" style={{ padding: '72px 0 100px' }}>
       <div className="container" style={{ maxWidth: 780 }}>
         <h1>Legal documents</h1>
         <p className="lead">Jump to: <Link href="#privacy">Privacy</Link> · <Link href="#terms">Terms</Link> · <Link href="#refund">Refund policy</Link></p>
@@ -58,5 +61,6 @@ export default function LegalPage() {
         </article>
       </div>
     </section>
+    </>
   )
 }

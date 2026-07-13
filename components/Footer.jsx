@@ -23,6 +23,7 @@ export default function Footer() {
           <h4>Quick links</h4>
           <ul className="footer-links">
             <li><Link href="/services">Service menu</Link></li>
+            <li><Link href="/end-of-lease-carpet-cleaning">End of lease cleaning</Link></li>
             <li><Link href="/pricing">Pricing guide</Link></li>
             <li><Link href="/booking">Instant quote</Link></li>
             <li><Link href="/blog">Cleaning tips blog</Link></li>
@@ -30,7 +31,13 @@ export default function Footer() {
         </div>
         <div>
           <h4>Service areas</h4>
-          <ul className="service-areas"><li>Anywhere in Melbourne</li></ul>
+          <ul className="service-areas">
+            {['Richmond','Brunswick','St Kilda','Footscray','Preston','Glen Waverley',
+              'Werribee','Craigieburn','Doreen','Whittlesea','Thomastown','Epping',
+              'Lalor','South Morang','Mill Park','Reservoir','Greensborough'].map(suburb => (
+              <li key={suburb}>{suburb}</li>
+            ))}
+          </ul>
         </div>
         <div>
           <h4>Newsletter</h4>

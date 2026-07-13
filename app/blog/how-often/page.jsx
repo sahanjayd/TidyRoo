@@ -1,17 +1,34 @@
 import Link from 'next/link'
+import BreadcrumbSchema from '../../../components/BreadcrumbSchema'
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How Often Should You Clean Your Carpets?',
+  description: 'A practical guide to carpet cleaning frequency for Melbourne homes, rentals, pet households, and offices.',
+  author: { '@type': 'Organization', name: 'TidyRoo', url: 'https://tidyroo.com.au' },
+  publisher: { '@type': 'Organization', name: 'TidyRoo', logo: { '@type': 'ImageObject', url: 'https://tidyroo.com.au/images/logo.jpg' } },
+  datePublished: '2024-09-01',
+  dateModified: '2025-01-15',
+  url: 'https://tidyroo.com.au/blog/how-often',
+}
 
 export const metadata = {
-  title: 'How Often Should You Clean Your Carpets? | TidyRoo Blog',
-  description: 'A practical guide to carpet cleaning frequency for Melbourne homes, rentals, pet households, and offices — from the TidyRoo team.',
+  title: 'How Often Should You Clean Your Carpets?',
+  description: "How often should carpets be professionally cleaned? TidyRoo's Melbourne technicians share cleaning schedules for families, renters, and allergy sufferers. Read now.",
 }
 
 export default function HowOftenPage() {
   return (
-    <section className="section-white" style={{ padding: '72px 0 100px' }}>
+    <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog' }, { name: 'How Often to Clean Carpets', href: '/blog/how-often' }]} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <section className="section-white" style={{ padding: '72px 0 100px' }}>
       <div className="container" style={{ maxWidth: 760 }}>
         <Link href="/blog" className="helper-text" style={{ display: 'inline-block', marginBottom: 24 }}>← Back to blog</Link>
         <span className="badge">Maintenance</span>
         <h1 style={{ marginTop: 12 }}>How often should you clean your carpets?</h1>
+        <p className="helper-text" style={{ marginTop: 8 }}>By TidyRoo Team · Published 1 September 2024 · Updated 15 January 2025</p>
         <p className="lead">The answer depends on your household — but here is a schedule that works for most Melbourne homes.</p>
 
         <h2 style={{ marginTop: 48 }}>The quick answer</h2>
@@ -51,7 +68,10 @@ export default function HowOftenPage() {
           <strong>Not sure when your last clean was?</strong>
           <p>If it has been more than 12 months, it is time. <Link href="/booking#quote-form">Book a quick assessment</Link> and our technician will advise the best treatment on arrival.</p>
         </div>
+
+        <p style={{ marginTop: 32 }}>See also: <Link href="/services/carpet-steam-cleaning">carpet steam cleaning</Link> · <Link href="/services/stain-odour-removal">stain and odour removal</Link> · <Link href="/end-of-lease-carpet-cleaning">end of lease carpet cleaning</Link></p>
       </div>
     </section>
+    </>
   )
 }

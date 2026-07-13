@@ -3,9 +3,13 @@ import Image from 'next/image'
 import ReviewsSection from '../components/ReviewsSection'
 
 export const metadata = {
-  title: 'TidyRoo | Professional Carpet Steam Cleaning in Melbourne',
-  description: 'TidyRoo delivers same-day carpet steam cleaning, upholstery care, and tile revival across Melbourne with eco-friendly detergents and transparent pricing.',
-  openGraph: { title: 'TidyRoo | Fresh floors. Fast turnarounds.', description: 'Book eco-friendly carpet steam cleaning with same-day service windows across Melbourne. Satisfaction guaranteed.' },
+  title: 'Carpet Steam Cleaning Melbourne',
+  description: 'Professional carpet steam cleaning in Melbourne. Same-day service windows, eco-friendly detergents, transparent pricing, and our 7-day satisfaction re-clean guarantee. Book now.',
+  openGraph: {
+    title: 'Carpet Steam Cleaning Melbourne | TidyRoo',
+    description: 'Fresh floors. Fast turnarounds. Same-day carpet steam cleaning across Melbourne with eco-friendly detergents and transparent pricing. Book online today.',
+    type: 'website',
+  },
 }
 
 const faqItems = [
@@ -38,7 +42,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="hero-media">
-            <Image src="/images/steam.jpg" alt="Professional carpet steam cleaning in action" fill style={{ objectFit: 'cover' }} priority />
+            <Image src="/images/steam.jpg" alt="Technician steam cleaning a living room carpet in Melbourne" fill style={{ objectFit: 'cover' }} priority sizes="(max-width: 768px) 100vw, 640px" />
           </div>
         </div>
       </section>

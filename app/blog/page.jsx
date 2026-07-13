@@ -1,8 +1,9 @@
 import Link from 'next/link'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'Blog | TidyRoo Carpet Cleaning Tips Melbourne',
-  description: 'Practical guides on how often to clean your carpets, keeping pets and carpets together, and what to do about stains — from the TidyRoo team.',
+  title: 'Carpet Cleaning Tips & Guides',
+  description: "Carpet cleaning tips and guides from TidyRoo's Melbourne technicians. Frequency schedules, pet care, stain removal advice, and seasonal reminders. Read now.",
 }
 
 const posts = [
@@ -28,7 +29,9 @@ const posts = [
 
 export default function BlogPage() {
   return (
-    <section className="section-white" style={{ padding: '72px 0 100px' }}>
+    <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog' }]} />
+      <section className="section-white" style={{ padding: '72px 0 100px' }}>
       <div className="container">
         <span className="hero-kicker">Cleaning tips &amp; guides</span>
         <h1>The TidyRoo blog</h1>
@@ -45,5 +48,6 @@ export default function BlogPage() {
         </div>
       </div>
     </section>
+    </>
   )
 }

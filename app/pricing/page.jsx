@@ -1,14 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'Pricing | TidyRoo Transparent Cleaning Packages',
-  description: "View TidyRoo's upfront pricing for carpet steam cleaning, upholstery, rugs, mattress, and tile services across Melbourne.",
+  title: 'Carpet Cleaning Prices Melbourne',
+  description: "Transparent carpet cleaning prices for Melbourne homes. Know the investment before we arrive — steam cleaning, upholstery, and tile services all included. Get a quote.",
 }
 
 export default function PricingPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Pricing', href: '/pricing' }]} />
       <section className="section-white" style={{ padding: '72px 0 80px' }}>
         <div className="container hero">
           <div className="hero-copy">
@@ -21,7 +23,7 @@ export default function PricingPage() {
             </div>
           </div>
           <div className="hero-media">
-            <Image src="/images/invoice.jpg" alt="Technician writing up a transparent quote for carpet cleaning" fill style={{ objectFit: 'cover' }} />
+            <Image src="/images/invoice.jpg" alt="Technician writing up a transparent quote for carpet cleaning" fill style={{ objectFit: 'cover' }} priority sizes="(max-width: 768px) 100vw, 640px" />
           </div>
         </div>
       </section>

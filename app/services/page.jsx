@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import HeroSlideshow from '../../components/HeroSlideshow'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'Services | TidyRoo Carpet & Upholstery Cleaning Melbourne',
-  description: "TidyRoo's full range of carpet steam cleaning, upholstery care, rug revival, mattress sanitising, and tile and grout restoration services across Melbourne.",
+  title: 'Carpet & Upholstery Cleaning Services Melbourne',
+  description: 'Carpet steam cleaning, upholstery care, rug washing, mattress sanitising, and tile restoration across Melbourne. Eco-friendly, fully insured. Get a free quote today.',
 }
 
 const services = [
@@ -42,6 +43,7 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Services', href: '/services' }]} />
       <section className="section-white" style={{ padding: '72px 0 80px' }}>
         <div className="container hero">
           <div className="hero-copy">

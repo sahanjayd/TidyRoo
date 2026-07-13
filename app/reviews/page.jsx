@@ -2,15 +2,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ReviewsSection from '../../components/ReviewsSection'
 import ApiForm from '../../components/ApiForm'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'Reviews | TidyRoo Customer Feedback Melbourne',
-  description: 'Read real customer reviews for TidyRoo carpet and upholstery cleaning services across Melbourne. Rated 4.9 stars with over 200 local reviews.',
+  title: 'Customer Reviews – 4.9 Stars Melbourne',
+  description: 'Read over 215 five-star reviews for TidyRoo carpet cleaning in Melbourne. Homeowners, renters, and property managers rate us 4.9 on Google. Book your clean today.',
 }
 
 export default function ReviewsPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Reviews', href: '/reviews' }]} />
       <section className="section-white" style={{ padding: '72px 0 80px' }}>
         <div className="container hero">
           <div className="hero-copy">
@@ -23,7 +25,7 @@ export default function ReviewsPage() {
             </div>
           </div>
           <div className="hero-media">
-            <Image src="/images/reviews-hero.jpg" alt="Happy TidyRoo customer at home" fill style={{ objectFit: 'cover' }} priority />
+            <Image src="/images/reviews-hero.jpg" alt="Happy customer in Melbourne home after professional carpet steam cleaning" fill style={{ objectFit: 'cover' }} priority sizes="(max-width: 768px) 100vw, 640px" />
           </div>
         </div>
       </section>

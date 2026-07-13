@@ -40,6 +40,7 @@ export default function HeroSlideshow() {
         fill
         style={{ objectFit: 'cover' }}
         priority={current === 0}
+        sizes="(max-width: 768px) 100vw, 640px"
       />
       <span className="hero-caption">{slide.caption}</span>
       <button className="hero-prev" type="button" onClick={prev} aria-label="Previous slide">‹</button>

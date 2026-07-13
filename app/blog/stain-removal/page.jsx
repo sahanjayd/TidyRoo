@@ -1,17 +1,34 @@
 import Link from 'next/link'
+import BreadcrumbSchema from '../../../components/BreadcrumbSchema'
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'First Response Stain Removal Guide',
+  description: 'What to do in the first 90 seconds after a carpet spill. Step-by-step guide for common household stains.',
+  author: { '@type': 'Organization', name: 'TidyRoo', url: 'https://tidyroo.com.au' },
+  publisher: { '@type': 'Organization', name: 'TidyRoo', logo: { '@type': 'ImageObject', url: 'https://tidyroo.com.au/images/logo.jpg' } },
+  datePublished: '2024-11-01',
+  dateModified: '2025-01-15',
+  url: 'https://tidyroo.com.au/blog/stain-removal',
+}
 
 export const metadata = {
-  title: 'First Response Stain Removal Guide | TidyRoo Blog',
-  description: 'What to do in the first 90 seconds after a spill. TidyRoo\'s step-by-step guide to handling common carpet and upholstery stains.',
+  title: 'First Response Stain Removal Guide',
+  description: "Act fast on carpet spills. TidyRoo's first-response stain removal guide covers red wine, coffee, mud, pet urine, and grease. Tips from Melbourne's carpet cleaning experts.",
 }
 
 export default function StainRemovalPage() {
   return (
-    <section className="section-white" style={{ padding: '72px 0 100px' }}>
+    <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog' }, { name: 'First Response Stain Removal Guide', href: '/blog/stain-removal' }]} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <section className="section-white" style={{ padding: '72px 0 100px' }}>
       <div className="container" style={{ maxWidth: 760 }}>
         <Link href="/blog" className="helper-text" style={{ display: 'inline-block', marginBottom: 24 }}>← Back to blog</Link>
         <span className="badge">Stains</span>
         <h1 style={{ marginTop: 12 }}>First response stain removal guide</h1>
+        <p className="helper-text" style={{ marginTop: 8 }}>By TidyRoo Team · Published 1 November 2024 · Updated 15 January 2025</p>
         <p className="lead">The first 90 seconds after a spill are critical. Here is what to do — and what to never do.</p>
 
         <article className="card" style={{ marginTop: 40, background: 'var(--color-green-50)' }}>
@@ -58,7 +75,10 @@ export default function StainRemovalPage() {
           <strong>Got a stain you cannot shift?</strong>
           <p>Send us a photo and we will advise the best treatment. <Link href="/contact">Get in touch</Link> or call <Link href="tel:+61493100989">0493 100 989</Link>.</p>
         </div>
+
+        <p style={{ marginTop: 32 }}>See also: <Link href="/services/stain-odour-removal">professional stain and odour removal</Link> · <Link href="/services/carpet-steam-cleaning">carpet steam cleaning</Link></p>
       </div>
     </section>
+    </>
   )
 }

@@ -1,15 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import BookingForm from '../../components/BookingForm'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'Book Online | TidyRoo Instant Quote',
-  description: 'Get an instant quote for carpet steam cleaning, upholstery, tiles, and more. Choose your rooms, add-on services, and preferred time. Same-day slots available.',
+  title: 'Book Carpet Cleaning – Instant Online Quote',
+  description: 'Book carpet cleaning in Melbourne in under two minutes. Choose your services, rooms, and preferred time slot. Same-day availability. Confirm your booking online.',
 }
 
 export default function BookingPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Book Online', href: '/booking' }]} />
       <section className="section-white" style={{ padding: '72px 0 80px' }}>
         <div className="container hero">
           <div className="hero-copy">
@@ -23,7 +25,7 @@ export default function BookingPage() {
             <p className="helper-text">Prefer to chat? <Link href="tel:+61493100989">Call 0493 100 989</Link> and we can book it for you.</p>
           </div>
           <div className="hero-media">
-            <Image src="/images/booking.jpg" alt="Homeowner booking a cleaning service on a tablet" fill style={{ objectFit: 'cover' }} />
+            <Image src="/images/booking.jpg" alt="Homeowner booking a carpet cleaning service online in Melbourne" fill style={{ objectFit: 'cover' }} priority sizes="(max-width: 768px) 100vw, 640px" />
           </div>
         </div>
       </section>

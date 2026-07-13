@@ -1,17 +1,34 @@
 import Link from 'next/link'
+import BreadcrumbSchema from '../../../components/BreadcrumbSchema'
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: "A Pet Owner's Guide to Clean, Fresh-Smelling Carpets",
+  description: 'Practical strategies to stay on top of fur, dander, and accidents without harsh chemicals.',
+  author: { '@type': 'Organization', name: 'TidyRoo', url: 'https://tidyroo.com.au' },
+  publisher: { '@type': 'Organization', name: 'TidyRoo', logo: { '@type': 'ImageObject', url: 'https://tidyroo.com.au/images/logo.jpg' } },
+  datePublished: '2024-10-01',
+  dateModified: '2025-01-15',
+  url: 'https://tidyroo.com.au/blog/pet-safe',
+}
 
 export const metadata = {
-  title: "A Pet Owner's Guide to Clean Carpets | TidyRoo Blog",
-  description: 'Keep your carpets fresh and odour-free when you have pets. Practical tips from TidyRoo on managing fur, dander, and accidents in Melbourne homes.',
+  title: "A Pet Owner's Guide to Clean Carpets",
+  description: "Manage fur, dander, and accidents without harsh chemicals. TidyRoo's guide to keeping carpets fresh in Melbourne homes with pets. Practical tips and a cleaning checklist.",
 }
 
 export default function PetSafePage() {
   return (
-    <section className="section-white" style={{ padding: '72px 0 100px' }}>
+    <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog' }, { name: "Pet Owner's Guide to Clean Carpets", href: '/blog/pet-safe' }]} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <section className="section-white" style={{ padding: '72px 0 100px' }}>
       <div className="container" style={{ maxWidth: 760 }}>
         <Link href="/blog" className="helper-text" style={{ display: 'inline-block', marginBottom: 24 }}>← Back to blog</Link>
         <span className="badge">Pets</span>
         <h1 style={{ marginTop: 12 }}>A pet owner&apos;s guide to clean, fresh-smelling carpets</h1>
+        <p className="helper-text" style={{ marginTop: 8 }}>By TidyRoo Team · Published 1 October 2024 · Updated 15 January 2025</p>
         <p className="lead">Pets and carpets can coexist. The key is building good habits and knowing when to call in the professionals.</p>
 
         <h2 style={{ marginTop: 48 }}>Why pets are tough on carpets</h2>
@@ -49,7 +66,10 @@ export default function PetSafePage() {
         <p style={{ marginTop: 32 }}>
           <Link className="btn btn-primary" href="/booking#quote-form">Book a pet-household clean</Link>
         </p>
+
+        <p style={{ marginTop: 24 }}>See also: <Link href="/services/stain-odour-removal">pet stain and odour removal</Link> · <Link href="/services/carpet-steam-cleaning">carpet steam cleaning</Link></p>
       </div>
     </section>
+    </>
   )
 }

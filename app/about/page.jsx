@@ -1,14 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import BreadcrumbSchema from '../../components/BreadcrumbSchema'
 
 export const metadata = {
-  title: 'About TidyRoo | Our Story & Team',
-  description: 'Meet the TidyRoo team delivering eco-friendly carpet steam cleaning in Melbourne. Learn about our certifications, sustainability efforts, and satisfaction guarantee.',
+  title: 'About Us – Melbourne Carpet Cleaning Team',
+  description: 'Meet TidyRoo — Melbourne\'s eco-friendly carpet cleaning team. IICRC certified, fully insured, family-run, and dedicated to your satisfaction. Learn more about us.',
 }
 
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', href: '/' }, { name: 'About Us', href: '/about' }]} />
       <section className="section-white" style={{ padding: '72px 0 80px' }}>
         <div className="container hero">
           <div className="hero-copy">
@@ -21,7 +23,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="hero-media">
-            <Image src="/images/about.jpg" alt="TidyRoo team member at work" fill style={{ objectFit: 'cover' }} />
+            <Image src="/images/about.jpg" alt="TidyRoo carpet cleaning technician at work in Melbourne" fill style={{ objectFit: 'cover' }} priority sizes="(max-width: 768px) 100vw, 640px" />
           </div>
         </div>
       </section>
