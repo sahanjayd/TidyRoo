@@ -8,6 +8,12 @@ export const metadata = {
 
 const posts = [
   {
+    href: '/blog/steam-vs-dry',
+    title: 'Steam cleaning vs dry cleaning: which is right for your carpet?',
+    desc: 'A detailed comparison from our Melbourne technicians — soil removal depth, drying times, and the situations where each method wins.',
+    tag: 'Cleaning methods',
+  },
+  {
     href: '/blog/how-often',
     title: 'How often should you clean your carpets?',
     desc: 'The answer depends on foot traffic, pets, and allergies. Here is a simple schedule for homes, rentals, and offices.',
