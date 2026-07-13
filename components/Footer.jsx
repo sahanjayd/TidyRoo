@@ -32,10 +32,26 @@ export default function Footer() {
         <div>
           <h4>Service areas</h4>
           <ul className="service-areas">
-            {['Richmond','Brunswick','St Kilda','Footscray','Preston','Glen Waverley',
-              'Werribee','Craigieburn','Doreen','Whittlesea','Thomastown','Epping',
-              'Lalor','South Morang','Mill Park','Reservoir','Greensborough'].map(suburb => (
-              <li key={suburb}>{suburb}</li>
+            {[
+              { label: 'Richmond',       href: '/carpet-cleaning-richmond' },
+              { label: 'Brunswick',      href: '/carpet-cleaning-brunswick' },
+              { label: 'St Kilda',       href: '/carpet-cleaning-st-kilda' },
+              { label: 'Footscray',      href: '/carpet-cleaning-footscray' },
+              { label: 'Preston',        href: '/carpet-cleaning-preston' },
+              { label: 'Glen Waverley',  href: '/carpet-cleaning-glen-waverley' },
+              { label: 'Werribee',       href: '/carpet-cleaning-werribee' },
+              { label: 'Craigieburn',    href: '/carpet-cleaning-craigieburn' },
+              { label: 'Doreen',         href: '/carpet-cleaning-doreen' },
+              { label: 'Whittlesea',     href: '/carpet-cleaning-whittlesea' },
+              { label: 'Thomastown',     href: '/carpet-cleaning-thomastown' },
+              { label: 'Epping',         href: '/carpet-cleaning-epping' },
+              { label: 'Lalor',          href: '/carpet-cleaning-lalor' },
+              { label: 'South Morang',   href: '/carpet-cleaning-south-morang' },
+              { label: 'Mill Park',      href: '/carpet-cleaning-mill-park' },
+              { label: 'Reservoir',      href: '/carpet-cleaning-reservoir' },
+              { label: 'Greensborough',  href: '/carpet-cleaning-greensborough' },
+            ].map(({ label, href }) => (
+              <li key={label}><Link href={href}>{label}</Link></li>
             ))}
           </ul>
         </div>
