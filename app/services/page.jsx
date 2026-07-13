@@ -9,31 +9,37 @@ export const metadata = {
 
 const services = [
   {
+    href: '/services/carpet-steam-cleaning',
     title: 'Carpet steam cleaning',
     desc: 'Our truckmount and portable units heat water to 95°C, injecting and extracting in one pass for a deep clean and low residue finish.',
     items: ['Pre-vacuum (HEPA) and soil analysis', 'Spot and stain spotting with fibre-safe solutions', 'High velocity extraction and grooming'],
   },
   {
+    href: '/services/dry-carpet-cleaning',
     title: 'Dry carpet cleaning',
     desc: 'Encapsulation cleaning for commercial spaces or areas needing immediate use. Leaves carpets dry within one hour.',
     items: ['Low moisture polymers break down soil', 'Counter-rotating brush agitation', 'Vacuum extraction and deodorising'],
   },
   {
+    href: '/services/upholstery-cleaning',
     title: 'Upholstery detailing',
     desc: 'Fabric testing and colour-fast checks precede each clean. Ideal for lounges, dining chairs, ottomans, and office partitions.',
     items: ['Solvent or water based options', 'Foam and hand tools for precision', 'Fabric protection sealants available'],
   },
   {
+    href: '/services/rug-mattress-cleaning',
     title: 'Mattress & rug sanitising',
     desc: 'Anti-microbial treatments to remove dust mites, sweat, and spills. Includes UV inspection and deodorising.',
     items: ['Mattress cleaning and deep sanitising', 'Rug washing with delicate fibre care', 'Pickup and delivery available on request'],
   },
   {
+    href: '/services/tile-grout-cleaning',
     title: 'Tile & grout restoration',
     desc: 'Rotary scrubbing paired with pressure rinsing and hot extraction to lift embedded grime from ceramic, porcelain, and stone tiles.',
     items: ['Sealing and anti-slip treatments', 'Safeguards for skirting and cabinetry', 'Mould and mildew neutralisation'],
   },
   {
+    href: '/services/stain-odour-removal',
     title: 'Stain & odour remediation',
     desc: 'Targeted enzyme, oxidising, and solvent-based treatments for pet accidents, wine, coffee, rust, and more stubborn spills.',
     items: ['Black light detection for hidden spots', 'Sub-surface extraction for severe pet issues', 'Re-clean guarantee within 7 days'],
@@ -63,13 +69,17 @@ export default function ServicesPage() {
         <div className="container">
           <h2>Detailed inclusions by service</h2>
           <div className="card-grid" style={{ marginTop: 36 }}>
-            {services.map(({ title, desc, items }) => (
+            {services.map(({ href, title, desc, items }) => (
               <article className="card service-card" key={title}>
-                <h3>{title}</h3>
+                <h3><Link href={href}>{title}</Link></h3>
                 <p>{desc}</p>
                 <ul>{items.map(i => <li key={i}>{i}</li>)}</ul>
+                <Link className="btn btn-outline btn-sm" href={href} style={{ marginTop: 12 }}>Learn more</Link>
               </article>
             ))}
+          </div>
+          <div style={{ marginTop: 32 }}>
+            <Link className="btn btn-outline" href="/end-of-lease-carpet-cleaning">End of lease carpet cleaning →</Link>
           </div>
         </div>
       </section>
